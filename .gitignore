@@ -1,0 +1,34 @@
+# Build results
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.docstates
+
+# Development settings
+appsettings.Development.json
+
+# IDE files
+.idea/
+.vs/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large data files
+*.csv
+!overseas_properties.csv
+
+# Dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Database
+*.db
+*.sqlite
