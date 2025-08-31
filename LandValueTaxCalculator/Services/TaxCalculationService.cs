@@ -6,7 +6,7 @@ namespace LandValueTaxCalculator.Services
     {
         public TaxCalculation CalculateTax(Property property, decimal taxRate = 0.01m)
         {
-            // Assume 70% of property value is land value (common estimate)
+            
             var landValuePortion = property.EstimatedValue * 0.7m;
             var annualTax = landValuePortion * taxRate;
 

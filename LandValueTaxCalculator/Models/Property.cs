@@ -12,4 +12,6 @@ public class Property
     public double Latitude { get; set; }
     public double Longitude { get; set; }
     public DateTimeOffset PurchaseDate { get; set; }
+    public bool IsUKCompany { get; set; } = false; // New property to distinguish UK companies
+    public string CompanyType { get; set; } = string.Empty; // For UK companies
 }

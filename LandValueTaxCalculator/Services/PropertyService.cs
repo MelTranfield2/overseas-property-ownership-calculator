@@ -29,6 +29,35 @@ namespace LandValueTaxCalculator.Services
                 .ToListAsync();
         }
 
+        private double GetLatitudeFromPostcode(string postcode)
+        {
+            // Simple postcode to lat/lng mapping for UK
+            var area = postcode.Length >= 2 ? postcode.Substring(0, 2).ToUpper() : "XX";
+            return area switch
+            {
+                "E1" or "EC" or "WC" or "SW" or "SE" or "NW" or "N1" => 51.5074, // London
+                "M1" or "M2" or "M3" => 53.4808, // Manchester
+                "B1" or "B2" => 52.4862, // Birmingham
+                "LS" => 53.8008, // Leeds
+                "S1" => 53.3811, // Sheffield
+                _ => 52.3555 // Default UK center
+            };
+        }
+
+        private double GetLongitudeFromPostcode(string postcode)
+        {
+            var area = postcode.Length >= 2 ? postcode.Substring(0, 2).ToUpper() : "XX";
+            return area switch
+            {
+                "E1" or "EC" or "WC" or "SW" or "SE" or "NW" or "N1" => -0.1278, // London
+                "M1" or "M2" or "M3" => -2.2426, // Manchester
+                "B1" or "B2" => -1.8904, // Birmingham
+                "LS" => -1.5491, // Leeds
+                "S1" => -1.4701, // Sheffield
+                _ => -1.1743 // Default UK center
+            };
+        }
+
         public async Task<List<string>> GetAvailableRegionsAsync()
         {
             return await _context.Properties
@@ -40,6 +69,7 @@ namespace LandValueTaxCalculator.Services
 
         public async Task<RegionSummary> GetRegionSummaryAsync(string region)
         {
+            
             var properties = await GetPropertiesByRegionAsync(region);
             var taxCalculations = _taxCalculationService.CalculateTaxForProperties(properties);
 
