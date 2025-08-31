@@ -19,4 +19,9 @@ RUN dotnet publish "LandValueTaxCalculator.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# Copy CSV files to the working directory
+COPY LandValueTaxCalculator/overseas_properties.csv .
+COPY LandValueTaxCalculator/test-uk-companies.csv .
+
 ENTRYPOINT ["dotnet", "LandValueTaxCalculator.dll"]
